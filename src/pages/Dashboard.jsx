@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { deleteSingleUser, fetchAllUsers } from "../API/usersAPI";
+import { deleteSingleUser, fetchAllUsers, deleteAll } from "../API/usersAPI";
 import { sortAlphabetically } from "../Utils/sortAlphabetically";
 import { AddDeletePopUp } from "../components/AddOrDeleteUserPopUp";
 
@@ -127,6 +127,9 @@ export const Dashboard = () => {
           ) : (
             <h2>No users at the moment</h2>
           )}
+          <button className="deleteAllBtn" onClick={() => deleteAll(dispatch)}>
+            Delete all users
+          </button>
         </main>
       </section>
     </>

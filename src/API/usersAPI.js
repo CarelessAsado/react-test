@@ -15,6 +15,7 @@ import {
   beginFetchingOneUser,
   successFetchingOneUser,
   failureFetchingOneUser,
+  deleteAllUsers,
 } from "../REDUX/usersSlice";
 
 const fetchAllUsers = async (dispatch) => {
@@ -34,7 +35,7 @@ const postNewUser = async (dispatch, newUser, cb) => {
     setTimeout(() => {
       dispatch(successPostNewUser(newUser));
       cb(false);
-    }, 2000);
+    }, 1000);
     /*FAKE API CALL*/
     /* const { data } = await axios.post(url, newUser); */
   } catch (error) {
@@ -57,19 +58,25 @@ const getSingleUser = async (dispatch, id) => {
     dispatch(failureFetchingOneUser(error.message));
   }
 };
+/*-----------------------------------DELETE ALL USERS---------------*/
+const deleteAll = (dispatch) => {
+  dispatch(deleteAllUsers());
+};
+/*------------------------DELETE SINGLE USER---------------------*/
 const deleteSingleUser = async (dispatch, id, cb) => {
   dispatch(begindeleteUser());
   try {
     setTimeout(() => {
       dispatch(successdeleteUser(id));
       cb(false);
-    }, 2000);
+    }, 500);
     /*FAKE API CALL*/
     /* const { data } = await axios.delete(url, { id: id }); */
   } catch (error) {
     dispatch(failuredeleteUser(error.message));
   }
 };
+/*-----------------------UPDATE USER-------------------------------*/
 const updateUser = async (dispatch, userToUpdate, navigate) => {
   dispatch(beginupdateUser());
   try {
@@ -89,4 +96,5 @@ export {
   deleteSingleUser,
   updateUser,
   postNewUser,
+  deleteAll,
 };

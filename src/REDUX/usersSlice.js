@@ -49,15 +49,20 @@ export const userSlice = createSlice({
     },
     successPostNewUser: (state, action) => {
       state.isFetching = false;
-
+      const id =
+        state.users.length > 0 ? state.users[state.users.length - 1].id + 1 : 1;
       state.users.push({
         ...action.payload,
-        id: state.users[state.users.length - 1].id + 1,
+        id: id,
       });
     },
     failurePostNewUser: (state, action) => {
       state.isFetching = false;
       state.errorPosting = action.payload;
+    },
+    /*----------------------------DELETE ALL USERS-------------------*/
+    deleteAllUsers: (state) => {
+      state.users = [];
     },
     /*-----------------------DELETE SINGLE USER ---------------------------*/
     begindeleteUser: (state) => {
@@ -110,5 +115,6 @@ export const {
   beginFetchingOneUser,
   successFetchingOneUser,
   failureFetchingOneUser,
+  deleteAllUsers,
 } = userSlice.actions;
 export default userSlice.reducer;
