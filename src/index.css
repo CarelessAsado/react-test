@@ -1,13 +1,326 @@
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+a {
+  text-decoration: none;
+  color: inherit;
+}
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+#dashboard,
+#editPageContainer {
+  max-width: 1000px;
+  margin: 50px auto;
+  padding: 0 10px;
+}
+header h1 {
+  font-size: 3rem;
+  margin: 40px 0;
+}
+.userHeader {
+  display: flex;
+  justify-content: space-between;
+  margin: 40px 0;
+  font-size: 2.25rem;
+}
+.functionality {
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
+}
+.addUserBtn {
+  font-size: 1.5rem;
+  background-color: rgb(58, 58, 218);
+  color: white;
+  padding: 10px 20px;
+  border: 1px solid rgb(41, 41, 184);
+  cursor: pointer;
+  transition: 0.3s;
+}
+.addUserBtn:hover {
+  background-color: rgb(48, 48, 200);
+}
+/*---------------------------------GRID TABLE---------------------------------*/
+.tableColumns {
+  display: grid;
+  grid-template-columns: 1fr 3fr 3fr 4fr 3fr 1fr 2fr;
+  border: 1px solid rgb(187, 178, 178);
+}
+
+.column {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  padding: 20px 0;
+}
+
+/*-----------------------------USER ROW---------------------*/
+.userRow {
+  display: grid;
+  grid-template-columns: 1fr 3fr 3fr 4fr 3fr 1fr 2fr;
+  align-items: center;
+  border-width: 1px;
+  border-style: none solid solid;
+  border-color: rgb(187, 178, 178);
+}
+.userRow .row {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  padding: 20px 0;
+}
+
+.userRow .btn {
+  font-size: 1.15rem;
+  padding: 10px 15px;
+  color: white;
+  cursor: pointer;
+  transition: 0.3s;
+  border-radius: 5px;
+}
+.userRow .btn.delete {
+  background-color: crimson;
+  border: 1px solid rgb(177, 18, 49);
+}
+.userRow .btn.edit {
+  background-color: rgb(13, 124, 81);
+  border: 1px solid rgb(24, 90, 57);
+}
+.userRow .btn.edit:hover {
+  background-color: rgb(19, 90, 63);
+}
+.userRow .btn.delete:hover {
+  background-color: rgb(177, 18, 49);
+}
+
+/*-----------------------EDIT USER---------------------------------------*/
+.editForm,
+.addUserForm {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.editForm .formControl,
+.addUserForm .formControl {
+  display: flex;
+  flex-direction: column;
+  font-size: 2rem;
+  gap: 8px;
+}
+
+.editForm .formControl input {
+  border: none;
+  outline: none;
+}
+.editForm .formControl input:focus {
+  color: crimson;
+  outline: 1px solid crimson;
+}
+.editForm .formControl input,
+.addUserForm .formControl input {
+  padding: 10px;
+  font-size: 2rem;
+}
+.editForm .formControl label,
+.addUserForm .formControl label {
+  padding: 0 10px;
+  letter-spacing: 2px;
+}
+.confirmOrCancelSection {
+  display: flex;
+  justify-content: space-between;
+}
+.confirmOrCancelSection button,
+.confirmOrCancelSection input {
+  font-size: 1.75rem;
+  color: white;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: 0.3s;
+  border-radius: 10px;
+}
+.confirmOrCancelSection button {
+  background-color: crimson;
+  border: 1px solid rgb(177, 18, 49);
+}
+.confirmOrCancelSection button:hover {
+  background-color: rgb(177, 18, 49);
+}
+.confirmOrCancelSection input,
+.confirmOrCancelSection #confirmarDelete {
+  background-color: rgb(13, 124, 81);
+  border: 1px solid rgb(24, 90, 57);
+}
+.confirmOrCancelSection input:hover,
+.confirmOrCancelSection #confirmarDelete {
+  background-color: rgb(24, 90, 57);
+}
+/*-------------------------------ADD USER---------------------------*/
+
+#addUserPageContainer,
+#confirmDeletePopUp {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.657);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.addUserFormAndHeader,
+.deleteUserPopUp {
+  max-width: 1000px;
+  width: 100%;
+  margin: 50px auto;
+  padding: 0px 10px 80px;
+  margin: 0 10px;
+  border-radius: 10px;
+  background-color: white;
+  position: relative;
+}
+.closeIcon {
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  cursor: pointer;
+}
+/*---------------------DELETE USER-----------------------*/
+.deleteUserPopUp h2 {
+  margin: 40px 0 20px;
+}
+.bannerBorrarUser {
+  margin: 30px 0 20px;
+  padding: 10px 20px;
+  border-top: 1px solid rgba(212, 167, 44);
+  border-bottom: 1px solid rgba(212, 167, 44);
+  background-color: #fff8c5;
+  color: black;
+  letter-spacing: 1px;
+  font-weight: 500;
+}
+/*--------------NAV---------------------*/
+nav {
+  background-color: black;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 150px;
+}
+nav .navTitle {
+  font-size: 2.5rem;
+}
+nav .navName {
+  font-size: 2rem;
+  color: papayawhip;
+}
+/*---------ERROR MESSAGE-------*/
+.errorMessage {
+  color: crimson;
+  font-size: 2rem;
+  margin: 50px 0;
+}
+
+.loadingMessage {
+  font-size: 2rem;
+  margin-top: 50px;
+}
+/*---------------FILTER SECTION--------------------------*/
+.filterSection {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.filterSection label {
+  font-size: 1rem;
+  font-weight: bold;
+}
+/*--------------------HOME---------------------------*/
+#home {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 80px;
+  height: 90vh;
+  font-size: 3rem;
+}
+#home button {
+  cursor: pointer;
+  border-radius: 10px;
+  padding: 15px;
+  color: white;
+  background-color: rgb(32, 29, 29);
+  font-size: 2rem;
+  border: 1px solid rgb(22, 21, 21);
+  transition: 0.3s;
+}
+#home button:hover {
+  background-color: black;
+}
+/*----------------GRID TABLE---------------------------*/
+/*------------------NAV-------------------------*/
+@media screen and (max-width: 850px) {
+  .tableColumns .column:nth-last-child(-n + 2) {
+    display: none;
+  }
+
+  .row:last-child {
+    grid-column: 4 /6;
+  }
+  .row:nth-last-child(2) {
+    grid-column: 2/4;
+  }
+  .userRow .btn {
+    width: 60%;
+  }
+  .userRow a {
+    width: 100%;
+  }
+  .tableColumns,
+  .userRow {
+    grid-template-columns: 1fr 3fr 3fr 4fr 3fr;
+  }
+  nav {
+    padding: 10px 50px;
+  }
+}
+@media screen and (max-width: 550px) {
+  nav {
+    padding: 10px 20px;
+  }
+  nav .navTitle {
+    font-size: 1.75rem;
+  }
+  nav .navName {
+    font-size: 1rem;
+  }
+  .userHeader {
+    display: block;
+  }
+  .userHeader .functionality {
+    border-top: 1px solid grey;
+    margin-top: 10px;
+    padding-top: 10px;
+  }
+  .userRow {
+    gap: 5px;
+  }
+  .userRow .row {
+    word-break: break-all;
+    padding: 10px 0px;
+  }
+  #dashboard .userHeader {
+    margin: 40px 0 10px;
+  }
 }
